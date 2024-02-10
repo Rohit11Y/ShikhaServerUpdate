@@ -1,13 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const Remark = require('./Routes/Remarkroute');
+const Admin = require('./Routes/adminRoute');
  require('./Config/conn');
+
+ 
 const bodyParser = require('body-parser');
  const customerInsert = require('./Routes/Route');
  const getCustomer = require('./Routes/Route');
  const customeredit = require('./Routes/Route');
  const getcustomerid = require('./Routes/Route');
  const cutomerdelete = require('./Routes/Route');
+
+
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,6 +49,7 @@ app.use('/Api/v',getcustomerid);
 app.use('/Api/v',cutomerdelete);
 
 app.use('/Api/v',Remark);
+app.use('/Api/v',Admin);
 
 
 const PORT = 4242;

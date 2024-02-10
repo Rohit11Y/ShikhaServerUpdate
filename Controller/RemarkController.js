@@ -85,6 +85,14 @@ exports.getAllremark_by_customer_id = async(req, res)=>{
         res.status(500).json({ message: 'Data Not Found' });
     }
 }
+exports.getAllremarksDetail = async(req, res)=>{
+    try {
+        let data = await customerremark.find({}).populate('id').sort({createdAt:-1});
+        res.status(200).json({ status: 'success',data });
+    } catch (error) {
+        res.status(500).json({ message: 'Data Not Found' });
+    }
+}
 
 
 //========controller

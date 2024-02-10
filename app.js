@@ -48,8 +48,8 @@ app.use('/Api/v',customeredit);
 app.use('/Api/v',getcustomerid);
 app.use('/Api/v',cutomerdelete);
 
-app.use('/Api/v',Remark);
-app.use('/Api/v',Admin);
+ app.use('/Api/v',Remark);
+ app.use('/Api/v/admin',Admin);
 
 
 const PORT = 4242;

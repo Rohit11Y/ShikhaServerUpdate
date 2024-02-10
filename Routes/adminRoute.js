@@ -2,6 +2,7 @@ const express = require("express");
 const {
   registerAdminCtrl,
   loginAdminCtrl,
+  getAllRemarks,
 //   updatepasswordAdmin,updateSubStaff,
 //   getstaffinfo,
 //   getAllStaff,
@@ -18,6 +19,7 @@ const adminRoute = express.Router();
 
 adminRoute.post("/register", registerAdminCtrl);
 adminRoute.post("/login", loginAdminCtrl);
+ adminRoute.get("/getAllRemarks", getAllRemarks);
 
 
 // ==================E N D======================

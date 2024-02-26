@@ -14,6 +14,9 @@ const remarkschema = new mongoose.Schema(
     remark :{
         type:String,
     },
+    amount :{
+        type:Number,
+    },
     image :{
         type:String,
     }

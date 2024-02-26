@@ -3,6 +3,7 @@ const cors = require('cors');
 const Remark = require('./Routes/Remarkroute');
 const Admin = require('./Routes/adminRoute');
  require('./Config/conn');
+ var multer = require('multer');
 
  
 const bodyParser = require('body-parser');
@@ -27,7 +28,6 @@ app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
 });
-var multer = require('multer');
 
 const imagestorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -41,7 +41,10 @@ const imagestorage = multer.diskStorage({
 const imageStorage = multer({ storage: imagestorage }); //For Image
 // //image Upload ===========
 app.use("/Uploads/", express.static("Uploads/"));
+
 app.use("/api/v1/admin/imageUpload_Use",imageStorage.single('file') ,Remark);
+//image Upload ===========
+
 app.use('/Api/v',customerInsert);
 app.use('/Api/v',getCustomer);
 app.use('/Api/v',customeredit);

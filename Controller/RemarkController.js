@@ -10,7 +10,7 @@ exports.remarkInsert = async(req, res) => {
     //  } catch (error) {
     //     return res.status(500).json({error:'Error Occured',error});
     //  }
-    const {id , date , remark , image} = req.body;
+    const {id , date , remark ,amount, image} = req.body;
 
     // if (!name || !phone || !email) {
     //     return res.status(200).json({message:'fill all fields properly'});
@@ -20,7 +20,7 @@ exports.remarkInsert = async(req, res) => {
         // if (date) {
         //     return res.status(404).json({error:'already exists'});
         // }else{
-            const data = new customerremark({id , date , remark , image});
+            const data = new customerremark({id , date ,amount, remark , image});
             await data.save();
             return res.status(200).json({message:'saved successfully'});
         // }
@@ -33,7 +33,7 @@ exports.remarkInsert = async(req, res) => {
 
 exports.getcutomerremark = async(req,res)=> {
    try {
-    const getremark = await customerremark.find().populate('id');
+    const getremark = await customerremark.find().populate('id').sort({createdAt:-1});
     return res.status(200).json({
         status:'true',
         message: 'Data Found',
@@ -93,8 +93,6 @@ exports.getAllremarksDetail = async(req, res)=>{
         res.status(500).json({ message: 'Data Not Found' });
     }
 }
-
-
 //========controller
 exports.imageUpload = async (req, res, next) => {
     try {
@@ -110,4 +108,6 @@ exports.imageUpload = async (req, res, next) => {
         res.status(500).json({ message: 'Data Fail' });
     }
   };
+
+  
 

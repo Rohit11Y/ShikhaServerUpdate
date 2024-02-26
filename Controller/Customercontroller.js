@@ -7,7 +7,6 @@ exports.customerInsert  = async (req , res) => {
     if (!name || !mobile || !address || !businessAddress ) {
         
        return res.status(500).json({error:'fill all the fields'});
-
     }
 
     try {
@@ -32,7 +31,7 @@ exports.getCustomer = async(req, res) => {
 
     try {
 
-        const customerdata = await customertable.find();
+        const customerdata = await customertable.find().sort({createdAt:-1});
         return res.status(200).json({
             status:'true',
             message:'Data Found',

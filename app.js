@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const Remark = require('./Routes/Remarkroute');
 const Admin = require('./Routes/adminRoute');
- require('./Config/conn');
+//  require('./Config/conn');
+ const dotenv = require("dotenv").config({ path: "./Config/custom.env" });
+ const dbconnect = require("./Config/conn");
  var multer = require('multer');
 
  
@@ -13,7 +15,8 @@ const bodyParser = require('body-parser');
  const getcustomerid = require('./Routes/Route');
  const cutomerdelete = require('./Routes/Route');
 
-
+//*************** */ CONNECT DATABASE *************** */
+dbconnect();
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,9 +43,10 @@ const imagestorage = multer.diskStorage({
 });
 const imageStorage = multer({ storage: imagestorage }); //For Image
 // //image Upload ===========
-app.use("/Uploads/", express.static("Uploads/"));
 
+app.use("/Uploads/", express.static("Uploads/"));
 app.use("/api/v1/admin/imageUpload_Use",imageStorage.single('file') ,Remark);
+
 //image Upload ===========
 
 app.use('/Api/v',customerInsert);

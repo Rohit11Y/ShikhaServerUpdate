@@ -1,3 +1,4 @@
+const asyncHandler = require("express-async-handler");
 
 const {customerremark} = require('../Modal/Remarkschema');
 
@@ -20,7 +21,7 @@ exports.remarkInsert = async(req, res) => {
         // if (date) {
         //     return res.status(404).json({error:'already exists'});
         // }else{
-            const data = new customerremark({id , date ,amount, remark , image});
+            const data = new customerremark({id , date ,amount,remark, image});
             await data.save();
             return res.status(200).json({message:'saved successfully'});
         // }
@@ -77,6 +78,44 @@ exports.getremarkid = async(req, res)=>{
     }
 }
 
+exports.getAllremarkTodayDate = asyncHandler(async (req, res) => {
+    try {
+        const {date} = req.body;
+     const today = new Date(date);
+        // const today = new Date('2024-02-26');
+         today.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero for precise date comparison
+        
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1); // Set to the next day
+        
+        const query = {
+            date: {
+                $gte: today, // Greater than or equal to today's date
+                $lt: tomorrow, // Less than tomorrow's date
+            },
+            // other query conditions if any...
+        };
+        
+        let remarkid = await customerremark.find(query).populate('id').sort({ createdAt: -1 });
+        
+        if (remarkid.length > 0) {
+            return res.status(200).json({
+                status: true,
+                message: 'Data Found',
+                data: remarkid,today
+            });
+        } else {
+            return res.status(404).json({
+                status: false,
+                message: 'No Data Found',
+                data: [],today
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ status: false, message: 'Internal Server Error' });
+    }
+});
 exports.getAllremark_by_customer_id = async(req, res)=>{
     try {
         let data = await customerremark.find({id:req.params.id}).populate('id').sort({createdAt:-1});
@@ -96,7 +135,7 @@ exports.getAllremarksDetail = async(req, res)=>{
 //========controller
 exports.imageUpload = async (req, res, next) => {
     try {
-      const Url = "http://206.189.130.102:4242/" + "Uploads/image/" + req.file.filename;
+     const Url = process.env.MAIN_URL + "Uploads/image/" + req.file.filename;
       const filename = req.file.filename;
       res.status(200).json({
         status: "success",

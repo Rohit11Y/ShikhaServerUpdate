@@ -116,6 +116,7 @@ exports.getAllremarkTodayDate = asyncHandler(async (req, res) => {
         res.status(500).json({ status: false, message: 'Internal Server Error' });
     }
 });
+
 exports.getAllremark_by_customer_id = async(req, res)=>{
     try {
         let data = await customerremark.find({id:req.params.id}).populate('id').sort({createdAt:-1});

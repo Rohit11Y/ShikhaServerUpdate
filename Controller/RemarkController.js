@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
 const { customerremark } = require("../Modal/Remarkschema");
-const customer = require("../Modal/Customerschema");
+const {customertable} = require("../Modal/Customerschema");
 
 exports.remarkInsert = async (req, res) => {
   // const {id , date , remark , image} = req.body;
@@ -22,12 +22,14 @@ exports.remarkInsert = async (req, res) => {
   } = req.body;
 
   try {
-    const findcustomer = await customer.findById(id);
+    const findcustomer = await customertable.findById(id);
     const customeramount = findcustomer.totalamount;
-    let customer_amt=0;
+    let customer_amt = 0;
+
     if (amount_given_To_user) {
       customer_amt = customeramount + amount;
     }
+
     if (amount_given_By_user) {
       customer_amt = customeramount - amount;
     }
@@ -41,15 +43,16 @@ exports.remarkInsert = async (req, res) => {
       image,
     });
     // await data.save();
-    const find_customer_and_update = await customer.findByIdAndUpdate(
+    const find_customer_and_update = await customertable.findByIdAndUpdate(
       { _id: id },
       {
         totalamount: customer_amt,
         $push: {
+          history:{
           remarkId: data_remark._id,
           credit_amount_given_To_user: amount_given_To_user ? amount : 0,
           credit_amount_given_By_user: amount_given_By_user ? amount : 0,
-        },
+        }},
       }
     );
 

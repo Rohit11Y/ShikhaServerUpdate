@@ -27,17 +27,17 @@ exports.remarkInsert = async (req, res) => {
     let customer_amt = 0;
 
     if (amount_given_To_user) {
-      customer_amt = customeramount + amount;
+      customer_amt = parseInt(customeramount) + parseInt(amount);
     }
 
     if (amount_given_By_user) {
-      customer_amt = customeramount - amount;
+      customer_amt = parseInt(customeramount) - parseInt(amount);
     }
-    if (amount_given_By_user) {
-      customer_amt = customeramount - amount;
-    }
+    // if (amount_given_By_user) {
+    //   customer_amt = customeramount - amount;
+    // }
     if (amount_given_By_user === false && amount_given_To_user === false) {
-      customer_amt = customeramount;
+      customer_amt = parseInt(customeramount);
     }
     const data_remark = await customerremark.create({
       id,

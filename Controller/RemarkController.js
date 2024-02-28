@@ -39,6 +39,8 @@ exports.remarkInsert = async (req, res) => {
     if (amount_given_By_user === false && amount_given_To_user === false) {
       customer_amt = parseInt(customeramount);
     }
+    const user_account_amount_before_update=customeramount;
+    const  user_account_amount_after_update=customer_amt;
     const data_remark = await customerremark.create({
       id,
       date,
@@ -46,8 +48,11 @@ exports.remarkInsert = async (req, res) => {
       remark,
       amount_given_To_user,
       amount_given_By_user,
+      user_account_amount_before_update,
+      user_account_amount_after_update,
       image,
     });
+
     // await data.save();
     const find_customer_and_update = await customertable.findByIdAndUpdate(
       { _id: id },

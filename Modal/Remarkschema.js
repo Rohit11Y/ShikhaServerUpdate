@@ -23,6 +23,12 @@ const remarkschema = new mongoose.Schema(
     amount: {
       type: Number,
     },
+    user_account_amount_before_update: {
+      type: Number,
+    },
+    user_account_amount_after_update: {
+      type: Number,
+    },
     image: {
       type: String,
     },

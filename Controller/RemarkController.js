@@ -33,6 +33,12 @@ exports.remarkInsert = async (req, res) => {
     if (amount_given_By_user) {
       customer_amt = customeramount - amount;
     }
+    if (amount_given_By_user) {
+      customer_amt = customeramount - amount;
+    }
+    if (amount_given_By_user === false && amount_given_To_user === false) {
+      customer_amt = customeramount;
+    }
     const data_remark = await customerremark.create({
       id,
       date,

@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
 const { customerremark } = require("../Modal/Remarkschema");
+
 const {customertable} = require("../Modal/Customerschema");
 
 exports.remarkInsert = async (req, res) => {
@@ -39,8 +40,8 @@ exports.remarkInsert = async (req, res) => {
     if (amount_given_By_user === false && amount_given_To_user === false) {
       customer_amt = parseInt(customeramount);
     }
-    const user_account_amount_before_update=customeramount;
-    const  user_account_amount_after_update=customer_amt;
+    // const user_account_amount_before_update=customeramount;
+    // const  user_account_amount_after_update=customer_amt;
     const data_remark = await customerremark.create({
       id,
       date,
@@ -48,8 +49,8 @@ exports.remarkInsert = async (req, res) => {
       remark,
       amount_given_To_user,
       amount_given_By_user,
-      user_account_amount_before_update,
-      user_account_amount_after_update,
+      user_account_amount_before_update:customeramount,
+      user_account_amount_after_update:customer_amt,
       image,
     });
 
@@ -79,10 +80,11 @@ exports.getcutomerremark = async (req, res) => {
       .find()
       .populate("id")
       .sort({ createdAt: -1 });
+     
     return res.status(200).json({
       status: "true",
       message: "Data Found",
-      data: getremark,
+      data: getremark
     });
   } catch (error) {
     return res.status(500).json({ message: "Not Found", error });
@@ -170,7 +172,8 @@ exports.getAllremark_by_customer_id = async (req, res) => {
       .find({ id: req.params.id })
       .populate("id")
       .sort({ createdAt: -1 });
-    res.status(200).json({ status: "success", data });
+   const findcustomer = await customertable.findById(req.params.id);
+    res.status(200).json({ status: "success", data,findcustomer });
   } catch (error) {
     res.status(500).json({ message: "Data Not Found" });
   }

@@ -2,7 +2,8 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const Admin = require("../Modal/Admin");
 // const customerremark = require('../Modal/Remarkschema');
-
+const jwt = require("jsonwebtoken");
+const generateToken = require("../Utils/generateToken");
 exports.registerAdminCtrl = asyncHandler(async (req, res, next) => {
     const { name, username, email, phone, password, loginType,  } =
       req.body;
@@ -66,7 +67,7 @@ exports.registerAdminCtrl = asyncHandler(async (req, res, next) => {
             email: adminFound?.email,
             phone: adminFound?.phone,
           },
-          // token: generateToken(adminFound?._id),
+           token: generateToken(adminFound?._id),
         });
       } else {
        

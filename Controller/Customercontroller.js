@@ -43,7 +43,22 @@ exports.getCustomer = async(req, res) => {
     }
    
 }
+exports.getCustomerbyId = async(req, res) => {
 
+    try {
+
+        const customerdata = await customertable.findById(req.params.id).sort({createdAt:-1});
+        return res.status(200).json({
+            status:'true',
+            message:'Data Found',
+             data: customerdata
+        });
+        
+    } catch (error) {
+        res.status(500).json({message:'Data Not Saved Successfully',error});
+    }
+   
+}
 exports.Editcustomer = async(req, res) => {
     
     try {

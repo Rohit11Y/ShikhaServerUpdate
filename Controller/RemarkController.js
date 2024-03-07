@@ -21,6 +21,11 @@ exports.remarkInsert = async (req, res) => {
     amount_given_To_user,
     amount_given_By_user,
   } = req.body;
+  // const findcustomer = await customertable.findById(id);
+  // if (amount_given_By_user && findcustomer.totalamount <= 0)
+  // {
+  //   return res.status(500).json({ status: "false", message: "Enter Less amount" });
+  // }
 
   try {
     const findcustomer = await customertable.findById(id);

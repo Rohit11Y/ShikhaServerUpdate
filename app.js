@@ -45,7 +45,7 @@ const imageStorage = multer({ storage: imagestorage }); //For Image
 // //image Upload ===========
 
 app.use("/Uploads/", express.static("Uploads/"));
-app.use("/api/v1/admin/imageUpload_Use",imageStorage.single('file') ,Remark);
+app.use("/api/v/admin/imageUpload_Use",imageStorage.single('file') ,Remark);
 
 //image Upload ===========
 

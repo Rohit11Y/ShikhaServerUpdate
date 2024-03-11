@@ -32,8 +32,15 @@ const remarkschema = new mongoose.Schema(
     image: {
       type: String,
     },
+    image: {
+      type: String,
+    },
+    createdAt:{
+      type: Date,
+      default: Date.now,
+    }
   },
-  { timestamps: true }
+  // { timestamps: true }
 );
 
 const customerremark = mongoose.model("remark", remarkschema);

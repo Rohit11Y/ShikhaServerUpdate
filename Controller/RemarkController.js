@@ -20,6 +20,7 @@ exports.remarkInsert = async (req, res) => {
     image,
     amount_given_To_user,
     amount_given_By_user,
+    createdAt,
   } = req.body;
   // const findcustomer = await customertable.findById(id);
   // if (amount_given_By_user && findcustomer.totalamount <= 0)
@@ -56,7 +57,7 @@ exports.remarkInsert = async (req, res) => {
       amount_given_By_user,
       user_account_amount_before_update:customeramount,
       user_account_amount_after_update:customer_amt,
-      image,
+      image,createdAt,
     });
 
     // await data.save();

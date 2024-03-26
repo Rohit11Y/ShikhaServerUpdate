@@ -44,14 +44,24 @@ exports.remarkInsert = async (req, res) => {
     //   customer_amt = customeramount - amount;
     // }
     if (amount_given_By_user === false && amount_given_To_user === false) {
-      customer_amt = parseInt(customeramount);
+       customer_amt = parseInt(customeramount);
+       
     }
-    // const user_account_amount_before_update=customeramount;
-    // const  user_account_amount_after_update=customer_amt;
+//  26-03-2024
+    let amt;
+    if (amount_given_By_user === false && amount_given_To_user === false) {
+      amt=0;
+   }else{
+    amt=amount;
+   }
+    
+   // const user_account_amount_before_update=customeramount;
+   // const  user_account_amount_after_update=customer_amt;
+
     const data_remark = await customerremark.create({
       id,
       date,
-      amount,
+      amount:amt,
       remark,
       amount_given_To_user,
       amount_given_By_user,
